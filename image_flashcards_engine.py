@@ -3,6 +3,7 @@ import tkinter as tk
 import sys
 import os
 import random
+import argparse
 
 
 def is_image(filename):
@@ -66,11 +67,6 @@ def hide_caption(caption_widget):
     caption_widget.configure(text="")
 
 
-def usage():
-    print(f"usage : python3 {sys.argv[0]} <IMAGES_DIRECTORY>")
-    exit()
-
-
 def main(images_directory):
     global image_index
     global image_caption
@@ -114,8 +110,9 @@ def main(images_directory):
 
 
 if __name__ == "__main__":
-    try:
-        images_directory = sys.argv[1]
-    except:
-        usage()
-    main(images_directory)
+    parser = argparse.ArgumentParser(
+        description='Graphical memory flashcard maker from a directory containing images.',
+    )
+    parser.add_argument("images_directory", help="The directory containing images")
+    args = parser.parse_args()
+    main(args.images_directory)
