@@ -5,6 +5,10 @@ import os
 import random
 import argparse
 
+COLOR1 = "cyan4"
+COLOR2 = "lightgrey"
+COLOR3 = "white"
+
 
 def is_image(filename):
     suffixes = [".png", ".jpg", ".jpeg", ".gif", ".bmp", ".tiff", ".webp"]
@@ -30,6 +34,16 @@ def get_image_caption(image_path):
     caption = ".".join(basename.split(".")[:-1]) # Remove the extension
     caption = caption.replace("_", " ") # Replace underscores with spaces
     return caption
+
+
+def display_caption_or_next_image(image_widget, counter_widget, caption_widget, action_button, image_caption, image_paths):
+    if caption_widget.cget("text") == "":
+        display_caption(caption_widget, image_caption)
+        action_button.configure(text="Next")
+    else:
+        display_next_image(image_widget, counter_widget, caption_widget, image_paths)
+        action_button.configure(text="Show")
+
 
 
 def display_next_image(image_widget, counter_widget, caption_widget, image_paths):
@@ -72,6 +86,7 @@ def main(images_directory):
     global image_caption
     image_index = 0
     image_caption = ""
+    font = ('Helvetica', '16')
 
     image_paths = get_all_image_paths(images_directory)
     random.shuffle(image_paths)
@@ -82,30 +97,40 @@ def main(images_directory):
 
     # init the window
     window = tk.Tk()
+    window.config(bg=COLOR1)
     # set the size of the window (full screen)
-    width= window.winfo_screenwidth()               
-    height= window.winfo_screenheight()               
-    window.geometry("%dx%d" % (width, height))
+    screen_width = window.winfo_screenwidth()               
+    screen_height = window.winfo_screenheight()               
+    window.geometry("%dx%d" % (screen_width, screen_height))
     # set the name of the window
     window.title("Flashcards")
-
-    # Create a Label widget to display the image
-    image_widget = tk.Label(window)
-
-    counter_widget = tk.Label(window, text=f"0 / {nb_images}")
+    
+    # Counter widget
+    counter_frame = tk.Frame(window, width=screen_width, height=(1/10)*screen_height, bg=COLOR2, relief="raised")
+    counter_widget = tk.Label(counter_frame, text=f"0 / {nb_images}", bg=COLOR3, relief="raised", padx=10, pady=2, font=font)
+    counter_widget.place(relx=0.5, rely=0.5, anchor="center")
+    
+    # Label widget to display the image
+    image_frame = tk.Frame(window, width=screen_width, height=(1/2)*screen_height, bg=COLOR2)
+    image_widget = tk.Label(image_frame)
+    image_widget.place(relx=0.5, rely=0.5, anchor="center")
 
     # Caption widget
-    caption_widget = tk.Label(window, text="")
+    caption_frame = tk.Frame(window, width=screen_width, height=(1/10)*screen_height, bg=COLOR2)
+    caption_widget = tk.Label(caption_frame, text="", font=font, bg=COLOR2)
+    caption_widget.place(relx=0.5, rely=0.5, anchor="center")
 
-    show_button = tk.Button(window, text="Show", command=lambda: display_caption(caption_widget, image_caption))
-    next_button = tk.Button(window, text="Next", command=lambda: display_next_image(image_widget, counter_widget, caption_widget, image_paths))
+    # Action button
+    button_frame = tk.Frame(window, width=screen_width, height=(3/10)*screen_height, bg=COLOR2)
+    action_button = tk.Button(button_frame, text="Show", font=font, width=20, height=5, bg=COLOR1, command=lambda: display_caption_or_next_image(image_widget, counter_widget, caption_widget, action_button, image_caption, image_paths))
+    action_button.place(relx=0.5, rely=0.5, anchor="center")
 
-    image_widget.pack()
-    counter_widget.pack()
-    caption_widget.pack()
-    show_button.pack()
-    next_button.pack()
+    counter_frame.pack(padx=10, pady=5)
+    image_frame.pack(padx=10, pady=5)
+    caption_frame.pack(padx=10, pady=5)
+    button_frame.pack(padx=10, pady=5)
 
+    display_next_image(image_widget, counter_widget, caption_widget, image_paths) # to display the first image
     window.mainloop()
 
 
