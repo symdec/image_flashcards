@@ -8,7 +8,7 @@ The goal of this tool is to automate (with randomness) the learning of an image 
 - recognize countries associated to flags
 - recognize animals (species, breeds)
 - recognize car models
-- recognize monuments
+- recognize monuments  
 etc. 
 
 The supplied example directory allows to make flashcards with the country flag on one side and the country name (in French) on the other one.
