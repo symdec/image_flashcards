@@ -5,9 +5,12 @@ import os
 import random
 import argparse
 
-COLOR1 = "cyan4"
-COLOR2 = "lightgrey"
-COLOR3 = "white"
+
+def _from_rgb(rgb):
+    """
+    translates an rgb tuple of int to a tkinter friendly color code
+    """
+    return "#%02x%02x%02x" % rgb 
 
 
 def is_image(filename):
@@ -16,6 +19,7 @@ def is_image(filename):
         if filename.endswith(suffix):
             return True
     return False
+
 
 def get_all_image_paths(images_directory):
     """
@@ -107,7 +111,7 @@ def main(images_directory):
     
     # Counter widget
     counter_frame = tk.Frame(window, width=screen_width, height=(1/10)*screen_height, bg=COLOR2, relief="raised")
-    counter_widget = tk.Label(counter_frame, text=f"0 / {nb_images}", bg=COLOR3, relief="raised", padx=10, pady=2, font=font)
+    counter_widget = tk.Label(counter_frame, text=f"0 / {nb_images}", bg=COLOR2, fg=COLOR3, padx=10, pady=2, font=font)
     counter_widget.place(relx=0.5, rely=0.5, anchor="center")
     
     # Label widget to display the image
@@ -117,7 +121,7 @@ def main(images_directory):
 
     # Caption widget
     caption_frame = tk.Frame(window, width=screen_width, height=(1/10)*screen_height, bg=COLOR2)
-    caption_widget = tk.Label(caption_frame, text="", font=font, bg=COLOR2)
+    caption_widget = tk.Label(caption_frame, text="", font=font, bg=COLOR2, fg=COLOR3)
     caption_widget.place(relx=0.5, rely=0.5, anchor="center")
 
     # Action button
@@ -136,8 +140,23 @@ def main(images_directory):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description='Graphical memory flashcard maker from a directory containing images.',
+        description='Graphical memory flashcard engine built from a directory containing images.',
     )
-    parser.add_argument("images_directory", help="The directory containing images")
+
+    parser.add_argument("images_directory", help="The directory containing images to learn / recognize")
+    parser.add_argument("-l", "--light-mode", action="store_true", help="use light mode in graphical interface (in dark mode by default if not set)")
     args = parser.parse_args()
+
+    # set light/dark mode
+    if args.light_mode:
+        COLOR1 = "dodgerblue4"
+        COLOR2 = _from_rgb((234,234,234))
+        COLOR3 = "black"
+    else: # dark mode, default
+        COLOR1 = "darkslategray"
+        COLOR2 = "black"
+        COLOR3 = "white"
+
     main(args.images_directory)
+
+

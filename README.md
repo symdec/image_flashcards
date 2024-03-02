@@ -1,6 +1,6 @@
 # Image Flashcards Builder
 
-Graphical memory flashcards program, building from a directory containing images.
+Graphical memory flashcards engine, building from a directory containing images.
 
 The flashcards have image on one side and text (the image name) on the other. 
 
