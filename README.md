@@ -1,6 +1,6 @@
-# Image Flashcards Builder
+# Image Flashcards Engine
 
-Graphical memory flashcards engine, building from a directory containing images.
+Simple graphical memory flashcards engine, quickly building flashcards only from a directory of named images.
 
 The flashcards have image on one side and text (the image name) on the other. 
 
@@ -13,3 +13,43 @@ etc.
 
 The supplied example directory allows to make flashcards with the country flag on one side and the country name (in French) on the other one.
 
+## Installation
+### Quick install
+```
+$ pip install -r requirements.txt
+```
+
+### Inside a Python virtual environment
+```
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+```
+
+To deactivate the virtual environment :
+```
+$ deactivate
+```
+
+## Usage
+### Quickstart
+```
+$ python3 image_flashcards_engine.py <YOUR_IMAGE_DIRECTORY>`
+```
+
+Example :
+```
+$ python3 image_flashcards_engine.py flag_images
+```
+
+### Help command
+To have full information on the usage : 
+```
+python3 image_flashcards_engine.py -h
+```
+
+### Building flashcards from your images
+- Take the image-caption pairs you want to learn
+- Name each image with its caption (ex: France.png), many image formats are supported.
+- Put all the images into a main directory (you can use subdirectories in it, see the repo example with flags)
+- Use the main directory name as script argument (see usage above)
