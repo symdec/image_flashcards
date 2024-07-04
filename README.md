@@ -33,8 +33,13 @@ $ deactivate
 
 ## Usage
 ### Quickstart
+
+- Take the image-caption pairs you want to learn / review
+- Name each image with its caption (ex: France.png), many image formats are supported.
+- Put all the images into a main directory (you can use subdirectories in it, like in the `flag_images` example folder)
+- Use the main directory name as script argument :
 ```
-$ python3 image_flashcards_engine.py <YOUR_IMAGE_DIRECTORY>`
+$ python3 image_flashcards_engine.py <YOUR_IMAGE_DIRECTORY>
 ```
 
 Example :
@@ -48,8 +53,4 @@ To have full information on the usage :
 python3 image_flashcards_engine.py -h
 ```
 
-### Building flashcards from your images
-- Take the image-caption pairs you want to learn
-- Name each image with its caption (ex: France.png), many image formats are supported.
-- Put all the images into a main directory (you can use subdirectories in it, see the repo example with flags)
-- Use the main directory name as script argument (see usage above)
+
