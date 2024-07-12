@@ -2,10 +2,8 @@
 
 Simple graphical memory flashcards engine, quickly building flashcards only from a directory of named images.
 
-<p align="center">
-  <img src="resources/screenshot1.png" alt="Screenshot 1" width="45%" />
-  <img src="resources/screenshot2.png" alt="Screenshot 2" width="45%" />
-</p>
+![Demo GIF](https://github.com/kyn76/image_flashcards/blob/main/resources/demo.gif)
+
 
 The flashcards have image on one side and text (the image name) on the other. 
 
