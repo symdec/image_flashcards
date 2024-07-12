@@ -4,16 +4,17 @@ import sys
 import os
 import random
 import argparse
+from typing import Tuple, List
 
 
-def _from_rgb(rgb):
+def _from_rgb(rgb: Tuple[int, int, int]) -> str:
     """
     translates an rgb tuple of int to a tkinter friendly color code
     """
     return "#%02x%02x%02x" % rgb 
 
 
-def is_image(filename):
+def is_image(filename: str) -> bool:
     suffixes = [".png", ".jpg", ".jpeg", ".gif", ".bmp", ".tiff", ".webp"]
     for suffix in suffixes:
         if filename.endswith(suffix):
@@ -21,7 +22,7 @@ def is_image(filename):
     return False
 
 
-def get_all_image_paths(images_directory):
+def get_all_image_paths(images_directory: str) -> List[str]:
     """
     Return all images paths in :images_directory: and its subdirectories
     """
@@ -33,14 +34,21 @@ def get_all_image_paths(images_directory):
     return image_paths
 
 
-def get_image_caption(image_path):
+def get_image_caption(image_path: str) -> str:
     basename = os.path.basename(image_path)
     caption = ".".join(basename.split(".")[:-1]) # Remove the extension
     caption = caption.replace("_", " ") # Replace underscores with spaces
     return caption
 
 
-def display_caption_or_next_image(image_widget, counter_widget, caption_widget, action_button, image_caption, image_paths):
+def display_caption_or_next_image(
+        image_widget: tk.Label, 
+        counter_widget: tk.Label, 
+        caption_widget: tk.Label, 
+        action_button: tk.Button, 
+        image_caption: str, 
+        image_paths: List[str],
+) -> None:
     if caption_widget.cget("text") == "":
         display_caption(caption_widget, image_caption)
         action_button.configure(text="Next")
@@ -50,7 +58,12 @@ def display_caption_or_next_image(image_widget, counter_widget, caption_widget, 
 
 
 
-def display_next_image(image_widget, counter_widget, caption_widget, image_paths):
+def display_next_image(
+        image_widget: tk.Label, 
+        counter_widget: tk.Label, 
+        caption_widget: tk.Label, 
+        image_paths: List[str],
+) -> None:
     global image_index
     global image_caption
     nb_images = len(image_paths)
@@ -77,15 +90,15 @@ def display_next_image(image_widget, counter_widget, caption_widget, image_paths
         counter_widget.configure(text=f"{image_index} / {nb_images}")
 
 
-def display_caption(caption_widget, image_caption):
+def display_caption(caption_widget: tk.Label, image_caption: str) -> None:
     caption_widget.configure(text=image_caption)
 
 
-def hide_caption(caption_widget):
+def hide_caption(caption_widget: tk.Label) -> None:
     caption_widget.configure(text="")
 
 
-def main(images_directory):
+def main(images_directory: str) -> None:
     global image_index
     global image_caption
     image_index = 0
