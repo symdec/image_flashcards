@@ -2,6 +2,11 @@
 
 Simple graphical memory flashcards engine, quickly building flashcards only from a directory of named images.
 
+<p align="center">
+  <img src="resources/screenshot1.png" alt="Screenshot 1" width="45%" />
+  <img src="resources/screenshot2.png" alt="Screenshot 2" width="45%" />
+</p>
+
 The flashcards have image on one side and text (the image name) on the other. 
 
 The goal of this tool is to automate (with randomness) the learning of an image caption, mainly to recognize items, examples :
