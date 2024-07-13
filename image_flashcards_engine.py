@@ -5,7 +5,7 @@ import random
 import argparse
 from typing import List
 
-from lib import from_rgb, get_all_image_paths, get_image_caption
+from lib import from_rgb, get_all_image_paths, get_image_caption, resize_image
 
 
 def display_caption_or_next_image(
@@ -45,9 +45,13 @@ def display_next_image(
         image_caption = get_image_caption(image_path)
         image_index += 1
         # Load the first image using Pillow
-        image = Image.open(image_path)  # Replace with the path to your first image
+        image = Image.open(image_path)
+        # Resize the image if needed
+        image_widget.update_idletasks() # update the widget properties
+        image_frame_dimensions = (image_widget.master.winfo_width(), image_widget.master.winfo_height())
+        resized_image = resize_image(image, image_frame_dimensions)
         # Convert the image for Tkinter
-        image_tk = ImageTk.PhotoImage(image)
+        image_tk = ImageTk.PhotoImage(resized_image)
         # Update image display
         image_widget.configure(image=image_tk)
         image_widget.image = image_tk
@@ -86,26 +90,33 @@ def main(images_directory: str) -> None:
     screen_width = window.winfo_screenwidth()               
     screen_height = window.winfo_screenheight()               
     window.geometry("%dx%d" % (screen_width, screen_height))
+
+    # define the heights of GUI sections
+    counter_frame_height = (1/10)*screen_height
+    image_frame_height = (5/10)*screen_height
+    caption_frame_height = (1/10)*screen_height
+    button_frame_height = (3/10)*screen_height
+
     # set the name of the window
-    window.title("Flashcards")
-    
+    window.title("Memory Flashcards")
+
     # Counter widget
-    counter_frame = tk.Frame(window, width=screen_width, height=(1/10)*screen_height, bg=COLOR2, relief="raised")
+    counter_frame = tk.Frame(window, width=screen_width, height=counter_frame_height, bg=COLOR2, relief="raised")
     counter_widget = tk.Label(counter_frame, text=f"0 / {nb_images}", bg=COLOR2, fg=COLOR3, padx=10, pady=2, font=font)
     counter_widget.place(relx=0.5, rely=0.5, anchor="center")
     
     # Label widget to display the image
-    image_frame = tk.Frame(window, width=screen_width, height=(1/2)*screen_height, bg=COLOR2)
+    image_frame = tk.Frame(window, width=screen_width, height=image_frame_height, bg=COLOR2)
     image_widget = tk.Label(image_frame)
     image_widget.place(relx=0.5, rely=0.5, anchor="center")
 
     # Caption widget
-    caption_frame = tk.Frame(window, width=screen_width, height=(1/10)*screen_height, bg=COLOR2)
+    caption_frame = tk.Frame(window, width=screen_width, height=caption_frame_height, bg=COLOR2)
     caption_widget = tk.Label(caption_frame, text="", font=font, bg=COLOR2, fg=COLOR3)
     caption_widget.place(relx=0.5, rely=0.5, anchor="center")
 
     # Action button
-    button_frame = tk.Frame(window, width=screen_width, height=(3/10)*screen_height, bg=COLOR2)
+    button_frame = tk.Frame(window, width=screen_width, height=button_frame_height, bg=COLOR2)
     action_button = tk.Button(button_frame, text="Show", font=font, width=20, height=5, bg=COLOR1, command=lambda: display_caption_or_next_image(image_widget, counter_widget, caption_widget, action_button, image_caption, image_paths))
     action_button.place(relx=0.5, rely=0.5, anchor="center")
 

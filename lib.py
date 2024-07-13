@@ -1,5 +1,6 @@
 from typing import List, Tuple
 import os
+from PIL import Image
 
 def from_rgb(rgb: Tuple[int, int, int]) -> str:
     """
@@ -33,3 +34,20 @@ def get_image_caption(image_path: str) -> str:
     caption = ".".join(basename.split(".")[:-1]) # Remove the extension
     caption = caption.replace("_", " ") # Replace underscores with spaces
     return caption
+
+
+def resize_image(image: Image, max_dimensions: Tuple[int, int]) -> Image:
+    """
+    Resize the image *image* to fit within the frame dimensions *max_dimensions* if it is larger or heigher
+    """
+    image_dimensions = image.size
+    if image_dimensions[0] > max_dimensions[0]:
+        ratio = max_dimensions[0] / image_dimensions[0]
+        new_dimensions = (int(image_dimensions[0] * ratio), int(image_dimensions[1] * ratio))
+        image = image.resize(new_dimensions)
+
+    if image_dimensions[1] > max_dimensions[1]:
+        ratio = max_dimensions[1] / image_dimensions[1]
+        new_dimensions = (int(image_dimensions[0] * ratio), int(image_dimensions[1] * ratio))
+        image = image.resize(new_dimensions)
+    return image
