@@ -1,6 +1,6 @@
 # Image Flashcards Engine
 
-Simple graphical memory flashcards engine, quickly building flashcards only from a directory of named images.
+Simple graphical memory flashcards engine, quickly building flashcards only from a directory containing named images.
 
 ![Demo GIF](https://github.com/kyn76/image_flashcards/blob/main/resources/demo.gif)
 
