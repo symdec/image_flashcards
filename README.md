@@ -2,7 +2,7 @@
 
 Simple graphical memory flashcards engine, quickly building flashcards only from a directory containing named images.
 
-![Demo GIF](https://github.com/kyn76/image_flashcards/blob/main/resources/demo.gif)
+![Demo GIF](https://github.com/symdec/image_flashcards/blob/main/resources/demo.gif)
 
 
 The flashcards have image on one side and text (the image name) on the other. 
