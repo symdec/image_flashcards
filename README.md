@@ -8,10 +8,9 @@ Simple graphical memory flashcards engine, quickly building flashcards only from
 The flashcards have image on one side and text (the image name) on the other. 
 
 The goal of this tool is to automate (with randomness) the learning of an image caption, mainly to recognize items, examples :
-- recognize countries associated to flags
+- recognize countries from their flag
 - recognize animals (species, breeds)
-- recognize car models
-- recognize monuments  
+- recognize monuments, places...  
 etc. 
 
 The supplied example directory allows to make flashcards with the country flag on one side and the country name (in French) on the other one.
